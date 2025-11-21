@@ -13,12 +13,15 @@ Week 2 — HPV16+18 oncology panel → 0.0069 s (live now)
 Week 3 — SARS-CoV-2 + all variants → sub-0.02 s
 Week 4 — VHL hereditary cancer panel → every cancer center
 
-Free Pilots Open
+
+GPG Secured Pilots Open-Access with passphrase - license@seqswift.com
 
 First 100 gyn-onc labs → free + testimonial
 3 lifetime licenses → random draw this week (DM feedback)
 Commercial → license@seqswift.com
 David S Schliemann
 Atlanta ground zero
-david@seqswift.io
-https://seqswift.com <- VHL hereditary cancer panel → 0.0006 s ( this week Vercel sync Wed Nov 19 08:04:47 PM EST 2025 -->
+david@seqswift.com
+https://seqswift.com <- VHL hereditary cancer panel → 0.0006 s
+
+Patent Pending · No cloud · No GPU · Offline · 489 MB RAM peak
