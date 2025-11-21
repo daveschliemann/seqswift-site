@@ -17,8 +17,8 @@ Free Pilots Open
 
 First 100 gyn-onc labs → free + testimonial
 3 lifetime licenses → random draw this week (DM feedback)
-Commercial → license@seqswift.io
-David Schliemann
+Commercial → license@seqswift.com
+David S Schliemann
 Atlanta ground zero
 david@seqswift.io
 https://seqswift.com <- VHL hereditary cancer panel → 0.0006 s ( this week Vercel sync Wed Nov 19 08:04:47 PM EST 2025 -->
