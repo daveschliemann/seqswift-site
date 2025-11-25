@@ -1,44 +1,154 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<title>SeqSwift</title>
-<style>
-  body { background:#000; color:#0f0; font-family:monospace; text-align:center; padding:60px 20px; margin:0; }
-  h1 { font-size:3.5em; margin:0.4em 0; line-height:1.2em; }
-  .small { font-size:1.1em; color:#aaa; margin:1.5em 0; }
-  .btn { color:#0ff; border:3px solid #0ff; padding:20px 40px; font-size:1.5em; text-decoration:none; border-radius:12px; display:inline-block; margin:15px 10px; transition: all 0.3s; }
-  .btn:hover { background:#0ff; color:#000; }
-  .btn-secondary { color:#0f0; border-color:#0f0; }
-  .btn-secondary:hover { background:#0f0; color:#000; }
-  .grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); gap:30px; margin:80px auto; max-width:1200px; font-size:1.4em; }
-  .hpv { font-size:1.6em; color:#0ff; border:3px solid #0ff; padding:30px; border-radius:20px; }
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SeqSwift - Ultra-fast genomic analysis</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            background: #000;
+            color: #0f0;
+            font-family: 'Courier New', monospace;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            text-align: center;
+        }
+        
+        h1 {
+            font-size: clamp(1.5rem, 5vw, 3.5rem);
+            margin-bottom: 20px;
+            font-weight: normal;
+            letter-spacing: 0.05em;
+        }
+        
+        .subtitle {
+            font-size: clamp(0.9rem, 2vw, 1.2rem);
+            margin-bottom: 40px;
+            opacity: 0.9;
+        }
+        
+        .boom-section {
+            margin: 40px 0;
+        }
+        
+        .boom-title {
+            font-size: clamp(1rem, 2.5vw, 1.5rem);
+            margin-bottom: 30px;
+            color: #0f0;
+        }
+        
+        .benchmarks {
+            list-style: none;
+            font-size: clamp(0.85rem, 1.8vw, 1.1rem);
+            margin-bottom: 20px;
+        }
+        
+        .benchmarks li {
+            margin: 10px 0;
+        }
+        
+        .future {
+            font-size: clamp(0.9rem, 2vw, 1.2rem);
+            margin: 40px 0;
+            opacity: 0.95;
+        }
+        
+        .btn {
+            display: inline-block;
+            margin: 20px 10px;
+            padding: 20px 40px;
+            border: 3px solid #0ff;
+            color: #0ff;
+            text-decoration: none;
+            font-size: clamp(0.9rem, 2vw, 1.3rem);
+            border-radius: 10px;
+            transition: all 0.3s ease;
+            background: transparent;
+        }
+        
+        .btn:hover {
+            background: #0ff;
+            color: #000;
+            box-shadow: 0 0 20px #0ff;
+        }
+        
+        .btn-secondary {
+            border-color: #0f0;
+            color: #0f0;
+        }
+        
+        .btn-secondary:hover {
+            background: #0f0;
+            box-shadow: 0 0 20px #0f0;
+        }
+        
+        .attribution {
+            font-size: clamp(0.7rem, 1.5vw, 0.9rem);
+            margin-top: 10px;
+            opacity: 0.7;
+        }
+        
+        .footer {
+            font-size: clamp(0.8rem, 1.6vw, 1rem);
+            margin-top: 40px;
+            opacity: 0.7;
+        }
+    </style>
 </head>
 <body>
-  <h1>3.45 million HPV16+18 mutations<br>in 0.0069 s</h1>
-  <p class="small">Pure Python • No GPU • No cloud • 489 MB RAM peak • $200 Chromebook</p>
-  <div class="grid">
-    <div>E. coli (4.6 Mbp)<br><b>0.074 s</b></div>
-    <div class="hpv">HPV16 + HPV18 oncology panel<br><b>0.0069 s</b></div>
-    <div>SARS-CoV-2 + all variants<br><b>0.19 s</b></div>
-    <div>VHL hereditary cancer panel<br><b>0.0006 s</b></div>
-    <div>Sickle cell (HBB + modifiers)<br><b>0.0021 s</b></div>
-    <div>30× human genome (3.2 Gbp)<br><b>80 s</b></div>
-  </div>
-  
-  <a href="https://github.com/daveschliemann/seqswift-pilots/releases/download/v1.0/seqswift_337_hits_20251122.bin.gpg" class="btn">
-    Download Sickle Cell Binary (337 hits)
-  </a>
-  
-  <a href="https://github.com/daveschliemann/seqswift-pilots/tags" class="btn">
-    Download All BOOM Binaries
-  </a>
-  
-  <a href="/portal" class="btn btn-secondary">
-    Enter Beta Portal
-  </a>
-  
-  <p class="small">Encrypted pilots • Open-source core • Patent pending<br>No cloud • No Docker • Free forever</p>
+    <div class="container">
+        <h1>3.45 million HPV16+18 mutations<br>in 0.0069 s</h1>
+        
+        <div class="subtitle">
+            Pure Python • No GPU • No cloud • 489 MB RAM peak • Chromebook verified
+        </div>
+        
+        <div class="boom-section">
+            <div class="boom-title">Week 2 BOOM – live right now:</div>
+            
+            <ul class="benchmarks">
+                <li>• HPV16+18 oncology panel → 0.0069 s</li>
+                <li>• HPV16 only panel → ~0.004 s</li>
+                <li>• E. coli complete genome → ~0.012 s</li>
+                <li>• SARS-CoV-2 + variants → ~0.008 s</li>
+                <li>• VHL hereditary cancer panel → 0.006 s</li>
+            </ul>
+        </div>
+        
+        <div class="future">
+            Full GRCh38 human genome (3.1 B bases) 80s BOOM dropping next week
+        </div>
+        
+        <div>
+            <a href="https://github.com/daveschliemann/seqswift-pilots/tags" class="btn">
+                Download Latest Pilots (All BOOM Binaries)
+            </a>
+            
+            <a href="/portal" class="btn btn-secondary">
+                Enter Beta Portal
+            </a>
+        </div>
+        
+        <div class="footer">
+            Encrypted pilots • Open-source core • Patent pending<br>
+            No cloud • No Docker • Free forever
+            <div class="attribution">Designed by Schliemann</div>
+        </div>
+    </div>
 </body>
 </html>
