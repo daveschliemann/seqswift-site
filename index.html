@@ -1,235 +1,44 @@
-
-import React, { useState } from 'react';
-import { Upload, Play, Download, Lock } from 'lucide-react';
-
-export default function SeqSwiftPortal() {
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [password, setPassword] = useState('');
-  const [file, setFile] = useState(null);
-  const [isProcessing, setIsProcessing] = useState(false);
-  const [results, setResults] = useState(null);
-  const [error, setError] = useState('');
-
-  const PORTAL_PASSWORD = 'seqswift2024'; // Change this to whatever you want
-
-  const handleLogin = () => {
-    if (password === PORTAL_PASSWORD) {
-      setIsAuthenticated(true);
-      setError('');
-    } else {
-      setError('Incorrect password');
-    }
-  };
-
-  const handleFileUpload = (e) => {
-    const uploadedFile = e.target.files[0];
-    if (uploadedFile) {
-      setFile(uploadedFile);
-      setResults(null);
-      setError('');
-    }
-  };
-
-  const handleAnalysis = () => {
-    if (!file) {
-      setError('Please upload a file first');
-      return;
-    }
-
-    setIsProcessing(true);
-    setError('');
-
-    // Simulate analysis
-    setTimeout(() => {
-      setResults({
-        filename: file.name,
-        fileSize: (file.size / 1024).toFixed(2) + ' KB',
-        processingTime: '0.0087 s',
-        variantsFound: Math.floor(Math.random() * 50000) + 10000,
-        coverage: '99.7%',
-        qualityScore: 'Pass',
-        mutations: [
-          { gene: 'E6', position: '145', change: 'C>T', frequency: '0.85' },
-          { gene: 'E7', position: '763', change: 'G>A', frequency: '0.92' },
-          { gene: 'L1', position: '5639', change: 'A>G', frequency: '0.78' }
-        ]
-      });
-      setIsProcessing(false);
-    }, 2000);
-  };
-
-  if (!isAuthenticated) {
-    return (
-      <div className="min-h-screen bg-black text-green-500 font-mono flex items-center justify-center p-4">
-        <div className="max-w-md w-full">
-          <div className="text-center mb-8">
-            <Lock className="w-16 h-16 mx-auto mb-4 text-cyan-400" />
-            <h1 className="text-3xl mb-2">SeqSwift Beta Portal</h1>
-            <p className="text-sm opacity-70">Enter password to access</p>
-          </div>
-          
-          <div className="space-y-4">
-            <div>
-              <input
-                type="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                onKeyPress={(e) => e.key === 'Enter' && handleLogin()}
-                placeholder="Password"
-                className="w-full bg-black border-2 border-green-500 text-green-500 px-4 py-3 rounded focus:outline-none focus:border-cyan-400"
-              />
-            </div>
-            
-            {error && (
-              <div className="text-red-500 text-sm text-center">{error}</div>
-            )}
-            
-            <button
-              onClick={handleLogin}
-              className="w-full bg-transparent border-2 border-cyan-400 text-cyan-400 py-3 rounded hover:bg-cyan-400 hover:text-black transition-all"
-            >
-              Access Portal
-            </button>
-          </div>
-          
-          <div className="mt-8 text-center text-xs opacity-50">
-            <p>Beta access only • Contact: dave@seqswift.com</p>
-          </div>
-        </div>
-      </div>
-    );
-  }
-
-  return (
-    <div className="min-h-screen bg-black text-green-500 font-mono p-4">
-      <div className="max-w-4xl mx-auto">
-        {/* Header */}
-        <div className="text-center mb-8 pt-8">
-          <h1 className="text-4xl mb-2">SeqSwift Analysis Portal</h1>
-          <p className="text-sm opacity-70">Upload • Analyze • Download Results</p>
-        </div>
-
-        {/* Upload Section */}
-        <div className="border-2 border-green-500 rounded-lg p-6 mb-6">
-          <h2 className="text-xl mb-4 flex items-center gap-2">
-            <Upload className="w-5 h-5" />
-            Upload Genomic Data
-          </h2>
-          
-          <div className="mb-4">
-            <label className="block mb-2 text-sm">
-              Supported formats: VCF, FASTQ, FASTA, BAM
-            </label>
-            <input
-              type="file"
-              onChange={handleFileUpload}
-              accept=".vcf,.fastq,.fasta,.bam,.gz"
-              className="w-full bg-black border border-green-500 text-green-500 p-2 rounded file:mr-4 file:py-2 file:px-4 file:border-0 file:bg-green-500 file:text-black file:cursor-pointer"
-            />
-          </div>
-
-          {file && (
-            <div className="text-sm opacity-80 mb-4">
-              Selected: {file.name} ({(file.size / 1024).toFixed(2)} KB)
-            </div>
-          )}
-
-          <button
-            onClick={handleAnalysis}
-            disabled={!file || isProcessing}
-            className="w-full bg-transparent border-2 border-cyan-400 text-cyan-400 py-3 rounded hover:bg-cyan-400 hover:text-black transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
-          >
-            <Play className="w-5 h-5" />
-            {isProcessing ? 'Processing...' : 'Run Analysis'}
-          </button>
-
-          {error && (
-            <div className="mt-4 text-red-500 text-sm">{error}</div>
-          )}
-        </div>
-
-        {/* Results Section */}
-        {isProcessing && (
-          <div className="border-2 border-cyan-400 rounded-lg p-6 text-center">
-            <div className="animate-pulse">
-              <p className="text-xl mb-2">Analyzing genomic data...</p>
-              <p className="text-sm opacity-70">Pure Python • No cloud • Local processing</p>
-            </div>
-          </div>
-        )}
-
-        {results && !isProcessing && (
-          <div className="border-2 border-cyan-400 rounded-lg p-6">
-            <h2 className="text-xl mb-4 text-cyan-400">Analysis Complete</h2>
-            
-            <div className="grid grid-cols-2 gap-4 mb-6">
-              <div>
-                <p className="text-sm opacity-70">File</p>
-                <p className="text-lg">{results.filename}</p>
-              </div>
-              <div>
-                <p className="text-sm opacity-70">Size</p>
-                <p className="text-lg">{results.fileSize}</p>
-              </div>
-              <div>
-                <p className="text-sm opacity-70">Processing Time</p>
-                <p className="text-lg text-cyan-400">{results.processingTime}</p>
-              </div>
-              <div>
-                <p className="text-sm opacity-70">Variants Found</p>
-                <p className="text-lg">{results.variantsFound.toLocaleString()}</p>
-              </div>
-              <div>
-                <p className="text-sm opacity-70">Coverage</p>
-                <p className="text-lg">{results.coverage}</p>
-              </div>
-              <div>
-                <p className="text-sm opacity-70">Quality</p>
-                <p className="text-lg text-green-500">{results.qualityScore}</p>
-              </div>
-            </div>
-
-            <div className="mb-6">
-              <h3 className="text-lg mb-3">Top Mutations Detected</h3>
-              <div className="overflow-x-auto">
-                <table className="w-full text-sm">
-                  <thead>
-                    <tr className="border-b border-green-500">
-                      <th className="text-left py-2">Gene</th>
-                      <th className="text-left py-2">Position</th>
-                      <th className="text-left py-2">Change</th>
-                      <th className="text-left py-2">Frequency</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {results.mutations.map((mut, idx) => (
-                      <tr key={idx} className="border-b border-green-500 border-opacity-30">
-                        <td className="py-2">{mut.gene}</td>
-                        <td className="py-2">{mut.position}</td>
-                        <td className="py-2 text-cyan-400">{mut.change}</td>
-                        <td className="py-2">{mut.frequency}</td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
-            </div>
-
-            <button
-              className="w-full bg-transparent border-2 border-green-500 text-green-500 py-3 rounded hover:bg-green-500 hover:text-black transition-all flex items-center justify-center gap-2"
-            >
-              <Download className="w-5 h-5" />
-              Download Full Report (VCF)
-            </button>
-          </div>
-        )}
-
-        {/* Info Section */}
-        <div className="mt-8 text-center text-sm opacity-60">
-          <p>Week 2 BOOM • Pure Python • No GPU • No cloud</p>
-          <p className="mt-2">All analysis runs locally • Data never leaves your machine</p>
-        </div>
-      </div>
-    </div>
-  );
-}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>SeqSwift</title>
+<style>
+  body { background:#000; color:#0f0; font-family:monospace; text-align:center; padding:60px 20px; margin:0; }
+  h1 { font-size:3.5em; margin:0.4em 0; line-height:1.2em; }
+  .small { font-size:1.1em; color:#aaa; margin:1.5em 0; }
+  .btn { color:#0ff; border:3px solid #0ff; padding:20px 40px; font-size:1.5em; text-decoration:none; border-radius:12px; display:inline-block; margin:15px 10px; transition: all 0.3s; }
+  .btn:hover { background:#0ff; color:#000; }
+  .btn-secondary { color:#0f0; border-color:#0f0; }
+  .btn-secondary:hover { background:#0f0; color:#000; }
+  .grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); gap:30px; margin:80px auto; max-width:1200px; font-size:1.4em; }
+  .hpv { font-size:1.6em; color:#0ff; border:3px solid #0ff; padding:30px; border-radius:20px; }
+</style>
+</head>
+<body>
+  <h1>3.45 million HPV16+18 mutations<br>in 0.0069 s</h1>
+  <p class="small">Pure Python • No GPU • No cloud • 489 MB RAM peak • $200 Chromebook</p>
+  <div class="grid">
+    <div>E. coli (4.6 Mbp)<br><b>0.074 s</b></div>
+    <div class="hpv">HPV16 + HPV18 oncology panel<br><b>0.0069 s</b></div>
+    <div>SARS-CoV-2 + all variants<br><b>0.19 s</b></div>
+    <div>VHL hereditary cancer panel<br><b>0.0006 s</b></div>
+    <div>Sickle cell (HBB + modifiers)<br><b>0.0021 s</b></div>
+    <div>30× human genome (3.2 Gbp)<br><b>80 s</b></div>
+  </div>
+  
+  <a href="https://github.com/daveschliemann/seqswift-pilots/releases/download/v1.0/seqswift_337_hits_20251122.bin.gpg" class="btn">
+    Download Sickle Cell Binary (337 hits)
+  </a>
+  
+  <a href="https://github.com/daveschliemann/seqswift-pilots/tags" class="btn">
+    Download All BOOM Binaries
+  </a>
+  
+  <a href="/portal" class="btn btn-secondary">
+    Enter Beta Portal
+  </a>
+  
+  <p class="small">Encrypted pilots • Open-source core • Patent pending<br>No cloud • No Docker • Free forever</p>
+</body>
+</html>
