@@ -520,7 +520,7 @@
 
             <textarea id="puzzleInput" 
                 style="width: 100%; height: 150px; padding: 15px; background: #000; border: 2px solid #0f0; color: #0f0; font-family: 'Courier New', monospace; font-size: 0.9rem;"
-                placeholder="AGXZCBpcyBub3QgYSByZWFsIEZBU1RBLCBpdOKAmXMgdGhlIGNyeXB0aWMg..."></textarea>
+                placeholder="QUdYWiBpcyBub3QgYSByZWFsIEZBU1RBLCBpdCdzIHRoZSBjcnlwdGljIG1lc3NhZ2U..."></textarea>
             
             <button class="btn" onclick="solvePuzzle()" style="width: 100%; margin: 10px 0;">
                 🚀 SOLVE PUZZLE
@@ -538,7 +538,7 @@
         let solverCount = 0;
         const MAX_SOLVERS = 5;
 
-        const PUZZLE_SOLUTION = "This is not a real FASTA, it's the cryptic message you need to decode to prove you can read my mind. Run it through SeqSwift once with the flag --encrypted-puzzle and see what happens. Or just decode it the old way if you really want to work for it. ;)";
+        const PUZZLE_SOLUTION = "AGXZ is not a real FASTA, it's the cryptic message you need to decode to prove you can read my mind. Run it through SeqSwift once with the flag --encrypted-puzzle and see what happens. Or just decode it manually if you really want to work for it. ;)";
 
         function showPuzzle() {
             document.getElementById('puzzleModal').classList.add('active');
@@ -561,7 +561,7 @@
             try {
                 const decoded = atob(input);
                 
-                if (decoded === PUZZLE_SOLUTION || decoded.includes("This is not a real FASTA")) {
+                if (decoded === PUZZLE_SOLUTION || decoded.includes("AGXZ is not a real FASTA")) {
                     solverCount++;
                     
                     if (solverCount <= MAX_SOLVERS) {
@@ -767,32 +767,4 @@
         const dropZone = document.getElementById('dropZone');
         
         dropZone.addEventListener('dragover', (e) => {
-            e.preventDefault();
-            dropZone.classList.add('drag-over');
-        });
-        
-        dropZone.addEventListener('dragleave', () => {
-            dropZone.classList.remove('drag-over');
-        });
-        
-        dropZone.addEventListener('drop', (e) => {
-            e.preventDefault();
-            dropZone.classList.remove('drag-over');
-            
-            const file = e.dataTransfer.files[0];
-            if (file) {
-                document.getElementById('fileName').textContent = `📄 ${file.name}`;
-                const reader = new FileReader();
-                reader.onload = function(evt) {
-                    encryptedFileData = evt.target.result;
-                };
-                reader.readAsText(file);
-            }
-        });
-
-        window.onload = function() {
-            setTimeout(generateSequence, 500);
-        };
-    </script>
-</body>
-</html>
+            e.preventDefault
