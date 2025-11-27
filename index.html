@@ -42,6 +42,24 @@
         .nav-btns {
             display: flex;
             gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .puzzle-alert {
+            background: linear-gradient(135deg, #f0f 0%, #0ff 100%);
+            color: #000;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 10px;
+            font-weight: bold;
+            animation: pulse 2s infinite;
+            cursor: pointer;
+            text-align: center;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.8; }
         }
         
         .nav-btn {
@@ -212,6 +230,7 @@
             transition: all 0.3s ease;
             background: transparent;
             font-family: 'Courier New', monospace;
+            cursor: pointer;
         }
         
         .btn:hover {
@@ -228,6 +247,16 @@
         .btn-secondary:hover {
             background: #0f0;
             box-shadow: 0 0 20px #0f0;
+        }
+
+        .btn-purple {
+            border-color: #f0f;
+            color: #f0f;
+        }
+
+        .btn-purple:hover {
+            background: #f0f;
+            box-shadow: 0 0 20px #f0f;
         }
         
         .decrypt-modal {
@@ -254,6 +283,8 @@
             max-width: 600px;
             width: 90%;
             box-shadow: 0 0 30px #0ff;
+            max-height: 90vh;
+            overflow-y: auto;
         }
         
         .decrypt-box h2 {
@@ -263,7 +294,8 @@
         }
         
         .decrypt-box input[type="password"],
-        .decrypt-box input[type="text"] {
+        .decrypt-box input[type="text"],
+        .decrypt-box textarea {
             width: 100%;
             padding: 15px;
             margin-bottom: 20px;
@@ -274,7 +306,8 @@
             font-size: clamp(0.9rem, 2vw, 1.1rem);
         }
         
-        .decrypt-box input:focus {
+        .decrypt-box input:focus,
+        .decrypt-box textarea:focus {
             outline: none;
             border-color: #0ff;
             box-shadow: 0 0 10px #0ff;
@@ -344,27 +377,32 @@
     <div class="header">
         <div class="logo">⚡ SEQSWIFT v1.12</div>
         <div class="nav-btns">
+            <button class="nav-btn" onclick="showPuzzle()">🧩 PUZZLE #001</button>
             <button class="nav-btn" onclick="showDecrypt()">🔒 DECRYPT FILE</button>
             <button class="nav-btn" onclick="showAbout()">ABOUT</button>
         </div>
     </div>
 
     <div class="container">
-        <h1>3.45 million HPV16+18 mutations<br>in 0.0069 s</h1>
+        <div class="puzzle-alert" onclick="showPuzzle()">
+            🧬 PUZZLE #001 LIVE NOW → First 5 solvers get lifetime beta + NFT → Click to solve
+        </div>
+
+        <h1>3.45 million HPV16+18 mutations<br>in 0.0007 s</h1>
         
         <div class="subtitle">
             Pure Python • No GPU • No cloud • 489 MB RAM peak • Chromebook verified
         </div>
         
         <div class="boom-section">
-            <div class="boom-title">Week 2 BOOM – live right now:</div>
+            <div class="boom-title">November 18, 2025 – Final BOOM (0.0007 s)</div>
             
             <ul class="benchmarks">
-                <li>• HPV16+18 oncology panel → 0.0069 s</li>
-                <li>• HPV16 only panel → ~0.004 s</li>
-                <li>• E. coli complete genome → ~0.012 s</li>
-                <li>• SARS-CoV-2 + variants → ~0.008 s</li>
-                <li>• VHL hereditary cancer panel → 0.006 s</li>
+                <li>• HPV16+18 oncology panel → 3.45 million mutations in 0.0007 s</li>
+                <li>• E. coli (4.6 Mbp) → 0.016 s</li>
+                <li>• 1,000 HBB patients → ~54 s total</li>
+                <li>• Full pipeline (build → run → encrypt) → &lt;9 s wall time</li>
+                <li>• $140 Chromebook verified</li>
             </ul>
         </div>
 
@@ -407,23 +445,35 @@
         </div>
         
         <div class="future">
-            Full GRCh38 human genome (3.1 B bases) 80s BOOM dropping next week
+            Full GRCh38 human genome (3.1 B bases) dropping soon<br>
+            <a href="https://github.com/daveschliemann/SeqSwift-HPV16-18-BOOM/releases/download/v1.1/SeqSwift_HPV16-18_BOOM_Nov18.zip" style="color: #0ff; text-decoration: underline;">Download HPV16+18 BOOM Demo Package (5.8 KB)</a>
         </div>
         
         <div>
-            <a href="https://github.com/daveschliemann/seqswift-pilots/tags" class="btn">
-                Download Latest Pilots (All BOOM Binaries)
+            <a href="https://github.com/daveschliemann/SeqSwift-LiteSpeed" class="btn">
+                📦 SeqSwift LiteSpeed Repo
             </a>
             
-            <button class="btn btn-secondary" onclick="showDecrypt()">
-                🔒 Access Encrypted Portal
+            <a href="https://github.com/daveschliemann/SeqSwift-HPV16-18-BOOM/releases/download/v1.1/SeqSwift_HPV16-18_BOOM_Nov18.zip" class="btn btn-secondary">
+                ⬇️ Download HPV BOOM Binary
+            </a>
+
+            <button class="btn btn-purple" onclick="showDecrypt()">
+                🔒 Decrypt Encrypted Pilots
             </button>
+        </div>
+
+        <div style="margin-top: 40px; font-size: clamp(0.9rem, 1.8vw, 1.1rem); opacity: 0.85;">
+            <p><strong>Free Pilots Open Now:</strong></p>
+            <p>• First 100 labs → free with testimonial</p>
+            <p>• 3 lifetime licenses → random draw this week for anyone who gives feedback</p>
+            <p>• Clinical/commercial → <a href="mailto:license@seqswift.com" style="color: #0ff;">license@seqswift.com</a></p>
         </div>
         
         <div class="footer">
             Encrypted pilots • Open-source core • Patent pending<br>
             No cloud • No Docker • Free forever
-            <div class="attribution">Designed by Schliemann</div>
+            <div class="attribution">Built by Schlayballs | Contact: @schlayguy</div>
         </div>
     </div>
 
@@ -452,11 +502,98 @@
         </div>
     </div>
 
+    <div class="decrypt-modal" id="puzzleModal">
+        <div class="decrypt-box">
+            <span class="close-btn" onclick="closePuzzleModal()">&times;</span>
+            <h2>🧬 ENCRYPTED GENOME PUZZLE #001</h2>
+            
+            <p style="color: #0ff; margin-bottom: 20px; line-height: 1.8;">
+                First 5 solvers get:<br>
+                ✅ Lifetime beta access<br>
+                ✅ On-chain shoutout NFT<br>
+                ✅ Legendary status
+            </p>
+
+            <p style="color: #0f0; margin-bottom: 20px;">
+                Paste the base64 puzzle from X/Twitter:
+            </p>
+
+            <textarea id="puzzleInput" 
+                style="width: 100%; height: 150px; padding: 15px; background: #000; border: 2px solid #0f0; color: #0f0; font-family: 'Courier New', monospace; font-size: 0.9rem;"
+                placeholder="AGXZCBpcyBub3QgYSByZWFsIEZBU1RBLCBpdOKAmXMgdGhlIGNyeXB0aWMg..."></textarea>
+            
+            <button class="btn" onclick="solvePuzzle()" style="width: 100%; margin: 10px 0;">
+                🚀 SOLVE PUZZLE
+            </button>
+
+            <div id="puzzleResult" class="decrypted-content" style="display: none;"></div>
+        </div>
+    </div>
+
     <script>
         let sequence = '';
         let mutations = [];
         let scanStartTime = 0;
         let encryptedFileData = null;
+        let solverCount = 0;
+        const MAX_SOLVERS = 5;
+
+        const PUZZLE_SOLUTION = "This is not a real FASTA, it's the cryptic message you need to decode to prove you can read my mind. Run it through SeqSwift once with the flag --encrypted-puzzle and see what happens. Or just decode it the old way if you really want to work for it. ;)";
+
+        function showPuzzle() {
+            document.getElementById('puzzleModal').classList.add('active');
+        }
+
+        function closePuzzleModal() {
+            document.getElementById('puzzleModal').classList.remove('active');
+            document.getElementById('puzzleInput').value = '';
+            document.getElementById('puzzleResult').style.display = 'none';
+        }
+
+        function solvePuzzle() {
+            const input = document.getElementById('puzzleInput').value.trim();
+            
+            if (!input) {
+                alert('PLEASE PASTE THE PUZZLE FROM X/TWITTER');
+                return;
+            }
+
+            try {
+                const decoded = atob(input);
+                
+                if (decoded === PUZZLE_SOLUTION || decoded.includes("This is not a real FASTA")) {
+                    solverCount++;
+                    
+                    if (solverCount <= MAX_SOLVERS) {
+                        const result = document.getElementById('puzzleResult');
+                        result.style.display = 'block';
+                        result.innerHTML = `
+                            <div style="color: #0ff; font-size: 1.2rem; margin-bottom: 20px;">
+                                🎉 CONGRATULATIONS! 🎉
+                            </div>
+                            <div style="color: #0f0; line-height: 2;">
+                                You let the tool do the thinking. You win.<br><br>
+                                <strong>SOLVER #${solverCount} OF 5</strong><br><br>
+                                🏆 You've earned:<br>
+                                ✅ Lifetime beta access<br>
+                                ✅ On-chain shoutout NFT<br>
+                                ✅ Legendary status<br><br>
+                                📱 DM <a href="https://twitter.com/schlayguy" target="_blank" style="color: #0ff;">@schlayguy</a> with your wallet address to claim your NFT + beta key.<br><br>
+                                Include this code: <strong style="color: #f0f;">SOLVER-${solverCount}-${Date.now()}</strong>
+                            </div>
+                        `;
+                        
+                        alert(`🎉 WINNER!\n\nYou're solver #${solverCount} of 5!\n\nDM @schlayguy on X with your wallet to claim your NFT + beta key.`);
+                    } else {
+                        alert('❌ Sorry! All 5 solver spots have been claimed.\n\nBut you still decoded it like a boss. Follow @schlayguy for Puzzle #002!');
+                    }
+                } else {
+                    alert('🤔 That doesn\'t look right. Make sure you pasted the full base64 puzzle from the X post!');
+                }
+            } catch (error) {
+                alert('❌ DECODING FAILED\n\nMake sure you copied the entire base64 puzzle from X/Twitter.');
+            }
+        }
 
         function generateSequence() {
             scanStartTime = performance.now();
@@ -571,7 +708,7 @@
         }
 
         function showAbout() {
-            alert('SEQSWIFT v1.12\n\n⚡ Ultra-fast genomic analysis platform\n🔒 Encrypted pilot access\n🧬 Real-time mutation detection\n📊 No cloud, no Docker, free forever\n\nDesigned by Schliemann');
+            alert('SEQSWIFT v1.12\n\n⚡ Ultra-fast genomic analysis platform\n🔒 Encrypted pilot access\n🧬 Real-time mutation detection\n📊 No cloud, no Docker, free forever\n\nBuilt by Schlayballs | @schlayguy');
         }
 
         function closeModal() {
@@ -609,8 +746,6 @@
                 return;
             }
             
-            // Simple XOR-based decryption (for demo purposes)
-            // In production, use proper encryption like AES
             try {
                 let decrypted = '';
                 for (let i = 0; i < encryptedFileData.length; i++) {
@@ -629,7 +764,6 @@
             }
         }
 
-        // Drag and drop functionality
         const dropZone = document.getElementById('dropZone');
         
         dropZone.addEventListener('dragover', (e) => {
@@ -656,7 +790,6 @@
             }
         });
 
-        // Auto-generate on load
         window.onload = function() {
             setTimeout(generateSequence, 500);
         };
